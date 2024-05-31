@@ -1,7 +1,7 @@
 import random
 import time
 
-record = 0  # Variable para almacenar el récord
+record_tiempo = float("inf")  # Inicializamos el récord con infinito (para que cualquier tiempo sea menor)
 
 print("Recuerda la combinación!!")
 
@@ -25,19 +25,21 @@ while True:
         inicio_tiempo = time.time()
         recuerda = input("Introduce los números agregados (sin espacios): ")
         tiempo_transcurrido = time.time() - inicio_tiempo
-        puntos = int(100 / tiempo_transcurrido)  # Calcula los puntos según el tiempo
 
         if recuerda.isdigit() and len(recuerda) == 16:
             recuerda_lista = [int(digito) for digito in recuerda]
             if recuerda_lista == numeros_repetidos:
-                print(f"¡Felicidades! Obtuviste {puntos} puntos.")
-                if puntos > record:
-                    record = puntos
+                print(f"¡Felicidades! Completaste la combinación en {tiempo_transcurrido:.2f} segundos.")
+                if tiempo_transcurrido < record_tiempo:
+                    record_tiempo = tiempo_transcurrido
             else:
                 print("Vuelve a intentarlo")
         else:
             print("Ingresa 16 dígitos numéricos sin espacios.")
     elif opcion == 3:
-        print(f"Mejor récord: {record} puntos")
+        if record_tiempo == float("inf"):
+            print("Aún no hay récord establecido.")
+        else:
+            print(f"Mejor récord: {record_tiempo:.2f} segundos")
     else:
         print("Opción incorrecta")
